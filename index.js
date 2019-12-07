@@ -16,6 +16,8 @@ app.get("/message", messageController.getMessages);
 
 app.post("/message", messageController.postMessages);
 
+app.get("/search", messageController.search);
+
 app.post("/assignMessageToRoom", messageController.assignMessageToRoom);
 
 app.get("/room", roomController.getRoomlist);

@@ -1,6 +1,6 @@
 function getAllMessages(callback){
     //Get all of the messages for the DB
-
+    
     var results = {
         messages: [
         {id:1, user:"Taylor", room:1, content:"This class is awesome"},
@@ -11,6 +11,17 @@ function getAllMessages(callback){
     }
     callback(null, results);
 
+}
+
+function searchByRoom(room, callback){
+
+    console.log("Searching the DB for the room messages " + room);
+
+    var results = {list:[{id:1, user:"Taylor", room:room, content:"This is the best."},
+    {id:1, user:"Jake", room:room, content:"I need to get this"},
+    {id:1, user:"Taylor", room:room, content:"We are killing it!"}]};
+
+    callback(null, results);
 }
 
 function getMessageByRoom(roomId, callback){
@@ -44,6 +55,7 @@ function assignMessageToRoom(messageId, roomId) {
 
 module.exports = {
     getAllMessages: getAllMessages,
+    searchByRoom: searchByRoom,
     getMessageByRoom: getMessageByRoom,
     insertNewMessage: insertNewMessage,
     assignMessageToRoom: assignMessageToRoom

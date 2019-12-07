@@ -11,6 +11,14 @@ function getMessages(req, res) {
 
 }
 
+function search(req, res) {
+    var room = req.query.room;
+
+    messageModels.searchByRoom(room, function(error, results){
+        res.json(results);
+    });
+}
+
 function getMessageRoom(req, res){
     //This is going to get all of the messages by a room
 
@@ -50,6 +58,7 @@ function assignMessageToRoom(req, res){
 }
 
 module.exports = {
+    search: search,
     getMessages: getMessages,
     postMessages: postMessages,
     getMessageRoom: getMessageRoom,
