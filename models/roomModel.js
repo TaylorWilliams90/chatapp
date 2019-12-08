@@ -1,3 +1,9 @@
+const { Pool } = require("pg");
+
+const db_url = process.env.DATABASE_URL;
+
+const pool = new Pool({connectionString: db_url});
+
 function getRoomlist(callback){
     //get all of the users from the DB
     var results = {

@@ -1,15 +1,34 @@
+const { Pool } = require("pg");
+
+const db_url = process.env.DATABASE_URL;
+
+const pool = new Pool({connectionString: db_url});
+
 function getAllMessages(callback){
     //Get all of the messages for the DB
+
+    var sql = "SELECT id, userName, content FROM messages;";
+
+    pool.query(sql, function(err, db_results){
+        if (err){
+            throw err;
+        } else{
+            console.log("Back from the database: ");
+            console.log(db_results);
+            var results = {
+                messages: [
+                {id:1, user:"Taylor", room:1, content:"This class is awesome"},
+                {id:2, user:"Jake", room:1, content:"What class are you taking"},
+                {id:2, user:"Jake", room:2, content:"Hey man"},
+                {id:3, user:"Taylor", room:1, content:"CIT 313"}
+                ]
+            }
+            callback(null, results);
+        }
+    })
     
-    var results = {
-        messages: [
-        {id:1, user:"Taylor", room:1, content:"This class is awesome"},
-        {id:2, user:"Jake", room:1, content:"What class are you taking"},
-        {id:2, user:"Jake", room:2, content:"Hey man"},
-        {id:3, user:"Taylor", room:1, content:"CIT 313"}
-        ]
-    }
-    callback(null, results);
+
+
 
 }
 
@@ -17,11 +36,23 @@ function searchByRoom(room, callback){
 
     console.log("Searching the DB for the room messages " + room);
 
-    var results = {list:[{id:1, user:"Taylor", room:room, content:"This is the best."},
-    {id:1, user:"Jake", room:room, content:"I need to get this"},
-    {id:1, user:"Taylor", room:room, content:"We are killing it!"}]};
+    var sql = "select username, content from messages inner join rooms on messages.room = rooms.id where rooms.name=$1::text";
+    var params = [room]
+    pool.query(sql, params, function(err, db_results){
+        if (err){
+            throw err;
+        } else{
+            //console.log("Back from the database: ");
+            //console.log(db_results);
 
-    callback(null, results);
+        var results = {
+            success:true,
+            list:db_results.rows
+        };
+
+        callback(null, results);
+        }
+    });
 }
 
 function getMessageByRoom(roomId, callback){
