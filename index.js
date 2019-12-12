@@ -9,6 +9,16 @@ var app = express();
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+app.use(require('morgan')('dev'));
+var session = require('express-session');
+var FileStore = require('session-file-store')(session);
+app.use(session({
+  name: 'server-session-cookie-id',
+  secret: 'my express secret',
+  saveUninitialized: true,
+  resave: true,
+  store: new FileStore()
+}));
 
 const messageController = require("./controllers/messageController.js");
 const roomController = require("./controllers/roomControllers.js");

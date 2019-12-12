@@ -1,26 +1,27 @@
 CREATE TABLE messages (
   id SERIAL PRIMARY KEY NOT NULL,
+  room int not NULL REFERENCES rooms(id),
   userName VARCHAR(80) NOT NULL,
   content VARCHAR(4000) NOT NULL
   );
 
-INSERT INTO messages (userName, content)
-VALUES ('John', 'I love this new game');
+INSERT INTO messages (userName, content, room)
+VALUES ('John', 'I love this new game', 1);
 
-INSERT INTO messages (userName, content)
-VALUES ('Taylor', 'I still need to that game');
+INSERT INTO messages (userName, content, room)
+VALUES ('Taylor', 'I still need to that game', 1);
 
-INSERT INTO messages (userName, content)
-VALUES ('Jake', 'What game is it');
+INSERT INTO messages (userName, content, room)
+VALUES ('Jake', 'What game is it', 1);
 
-INSERT INTO messages (userName, content)
-VALUES ('John', 'what are you guys working on');
+INSERT INTO messages (userName, content, room)
+VALUES ('John', 'what are you guys working on', 2);
 
-INSERT INTO messages (userName, content)
-VALUES ('Taylor', 'I need help');
+INSERT INTO messages (userName, content, room)
+VALUES ('Taylor', 'I need help', 3);
 
-INSERT INTO messages (userName, content)
-VALUES ('Jake', 'I am new to this');
+INSERT INTO messages (userName, content, room)
+VALUES ('Jake', 'I am new to this', 4);
 
 CREATE TABLE rooms (
 id SERIAL PRIMARY KEY NOT NULL,
@@ -50,3 +51,16 @@ INSERT INTO messages_rooms (messagesId, roomsId)
 VALUES (5, 3);
 INSERT INTO messages_rooms (messagesId, roomsId)
 VALUES (6, 4);
+
+
+ALTER TABLE messages
+ADD room int REFERENCES rooms(id);
+
+INSERT INTO messages (room)
+VALUES (1);
+
+TRUNCATE TABLE messages;
+
+
+UPDATE rooms
+SET name = 'gaming' WHERE id = 1;

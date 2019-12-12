@@ -13,23 +13,15 @@ function getAllMessages(callback){
         if (err){
             throw err;
         } else{
-            console.log("Back from the database: ");
-            console.log(db_results);
+            //console.log("Back from the database: ");
+            //console.log(db_results);
             var results = {
-                messages: [
-                {id:1, user:"Taylor", room:1, content:"This class is awesome"},
-                {id:2, user:"Jake", room:1, content:"What class are you taking"},
-                {id:2, user:"Jake", room:2, content:"Hey man"},
-                {id:3, user:"Taylor", room:1, content:"CIT 313"}
-                ]
-            }
+                seccess:true,
+                list:db_results.rows
+            };
             callback(null, results);
         }
     })
-    
-
-
-
 }
 
 function searchByRoom(room, callback){

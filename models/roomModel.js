@@ -6,13 +6,22 @@ const pool = new Pool({connectionString: db_url});
 
 function getRoomlist(callback){
     //get all of the users from the DB
-    var results = {
-        Users: [
-            {id:1, name:"General"},
-            {id:2, name:"Gaming"}
-        ]
-    }
-    callback(null, results);
+    var sql = "select name from rooms";
+    pool.query(sql, function(err, db_results){
+        if (err){
+            throw err;
+        } else{
+            console.log("Back from the database: ");
+            console.log(db_results);
+
+        var results = {
+            success:true,
+            list:db_results.rows
+        };
+
+        callback(null, results);
+        }
+    });
 }
 
 function insertRoom(name, callback){

@@ -22,30 +22,47 @@
         .form-group.mx-sm-3.mb-2 {
             max-width: 298px;
         }
+
+        input.roomBtn {
+            width: 100%;
+            padding: 10px;
+        }
         </style>
 
     </head>
-    <body>
+    <body onload="allMessages(); getRooms();">
         <div class="container">
             <h1>Chat app</h1>
                 <div class="form-group mx-sm-3 mb-2">
                     <input type="text" class="col-sm-4 form-control" id="room" placeholder="Room">
                     <button onclick="searchByRoom()" class="btn btn-primary">Search</button>
-                </div>                 
-            <div class="panel panel-primary">
+                </div>
+                <div class="col-sm-4 panel panel-primary">
+                        <div class="panel-heading">
+                            <h2>Rooms</h2>
+                        </div>
+                        <div id="ulRooms" class="list-group">
+                            <select id="ulRooms" name="rooms" multiple>
+                                        
+                            </select>
+                            <input type="submit">
+                        </div>
+        
+                    </div>
+
+            <div class="col-sm-8 panel panel-primary">
                 <div class="panel-heading">
                     <h2>Messages</h2>
                 </div>
-                    <ul id="ulMessages" class="list-group">
+                <ul id="ulMessages" class="list-group">
 
                 </ul>
 
                 <div class="input-group">
-                        <input id="name" type="text" class="form-control input-sm" placeholder="Name">
+                        <input id="username" type="text" class="form-control input-sm" placeholder="Username">
                         <input id="message" type="text" class="form-control input-sm" placeholder="Type your message here...">
                         <span class="input-group-btn">
-                            <button class="btn btn-warning btn-sm" id="btn-chat">
-                                Send</button>
+                            <button class="btn btn-warning btn-sm" id="btn-chat" onclick="inputMessage()">Send</button>
                         </span>
                     </div>
             </div>
