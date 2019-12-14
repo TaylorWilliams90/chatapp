@@ -18,15 +18,11 @@ function searchByRoom(){
     })
 }
 
-function clickRoom(){
-    console.log("clicking on Room......");
-
-    var room = $("button")val();
-    console.log("Room clicked is: " + room);
-
-    $.get("/search", {room:room}, function(data) {
-        console.log("back from the server with: ");
-        console.log(data);
+function clickRoom(room){
+    var valRoom = $(room).val();
+    console.log(valRoom);
+    console.log("clicking on Room: ");
+    $.get("/search", {room:valRoom}, function(data) {
         $('#ulMessages').empty();
 
         for (var i = 0; i < data.list.length; i++){
@@ -36,16 +32,18 @@ function clickRoom(){
         }
 
     })
+
 }
 
 function inputMessage(){
 
     var username = $("#username").val();
     var message = $("#message").val();
+    var roomid = $("#roomList").val();
 
-    console.log(username + message);
+    console.log("The Room is: " + roomid + " - " + username + ": " + message);
 
-    $.post("/message", {username:username}, {message:message}, function(){
+    $.post("/message", {username:username}, {content:message}, {room:roomid}, function(){
 
     })
 }
@@ -72,6 +70,7 @@ function getRooms(){
             var room = data.list[i];
 
             $("#ulRooms").append("<input type='button' onclick='clickRoom(this)' class='roomBtn' value='" + room.name + "'/>");
+            $("#roomList").append("<option id='roomIn' value='" + room.id + "'>" + room.name + "</option>")
         }
     });
 }

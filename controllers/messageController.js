@@ -19,26 +19,13 @@ function search(req, res) {
     });
 }
 
-function getMessageRoom(req, res){
-    //This is going to get all of the messages by a room
-
-    
-    //TODO: get the room id that needs to be checked from the messages 
-
-    console.log("getting the room")
-
-    var roomId = req.query.roomId
-
-    messageModels.getMessageByRoom(roomId, function(error, results){
-        res.json(results);
-    });
-}
 
 function postMessages(req, res){
-    var name = "Taylor Williams";
-    var roomId = 1;
-    var content = "The Chat app is working";
-    messageModels.insertNewMessage(name, roomId, content, function(error, results){
+    var name = req.query.username;
+    var content = req.query.message;
+    var roomId = req.query.roomid;
+
+    messageModels.insertNewMessage(name, content, roomId, function(error, results){
         res.json(results);
     });
 
@@ -61,6 +48,5 @@ module.exports = {
     search: search,
     getMessages: getMessages,
     postMessages: postMessages,
-    getMessageRoom: getMessageRoom,
     assignMessageToRoom: assignMessageToRoom
 };

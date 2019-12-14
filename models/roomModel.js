@@ -6,7 +6,7 @@ const pool = new Pool({connectionString: db_url});
 
 function getRoomlist(callback){
     //get all of the users from the DB
-    var sql = "select name from rooms";
+    var sql = "select name, id from rooms";
     pool.query(sql, function(err, db_results){
         if (err){
             throw err;

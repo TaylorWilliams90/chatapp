@@ -47,22 +47,11 @@ function searchByRoom(room, callback){
     });
 }
 
-function getMessageByRoom(roomId, callback){
-    // get the messages from that match that room
 
-    var results = {
-        messages: [
-        {id:1, user:"Taylor", roomId:roomId, content:"This class is awesome"},
-        {id:2, user:"Jake", roomId:roomId, content:"This class is awesome"},
-        {id:3, user:"Taylor", roomId:roomId, content:"This class is awesome"},
-        ]
-    }
-
-    callback(null, results);
-}
-
-function insertNewMessage(user, roomId, content, callback){
+function insertNewMessage(username, content, roomId, callback){
     //create the new message in the DB with the user and content
+
+    console.log("The Room is: " + roomid + " - " + username + ": " + content);
 
     var results = {success:true,
                     message:{id:1, user:user, roomId:roomId, content:content}};
@@ -79,7 +68,6 @@ function assignMessageToRoom(messageId, roomId) {
 module.exports = {
     getAllMessages: getAllMessages,
     searchByRoom: searchByRoom,
-    getMessageByRoom: getMessageByRoom,
     insertNewMessage: insertNewMessage,
     assignMessageToRoom: assignMessageToRoom
 }
