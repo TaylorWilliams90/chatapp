@@ -51,23 +51,16 @@ function searchByRoom(room, callback){
 function insertNewMessage(username, content, roomId, callback){
     //create the new message in the DB with the user and content
 
-    console.log("The Room is: " + roomid + " - " + username + ": " + content);
+    console.log("The Room is: " + roomId + " - " + username + ": " + content);
 
-    var results = {success:true,
-                    message:{id:1, user:user, roomId:roomId, content:content}};
-
-    callback(null, results);
+    var sql = "INSERT INTO messages (userName, content, room) VALUES ($1::text, $2::text, $3::int)";
+    var params = [username, content, roomId]
+    pool.query(sql, params);
 }
 
-function assignMessageToRoom(messageId, roomId) {
-    var results = {};
-
-    callback(null, results)
-}
 
 module.exports = {
     getAllMessages: getAllMessages,
     searchByRoom: searchByRoom,
-    insertNewMessage: insertNewMessage,
-    assignMessageToRoom: assignMessageToRoom
+    insertNewMessage: insertNewMessage
 }

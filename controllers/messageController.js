@@ -21,32 +21,19 @@ function search(req, res) {
 
 
 function postMessages(req, res){
-    var name = req.query.username;
-    var content = req.query.message;
-    var roomId = req.query.roomid;
 
-    messageModels.insertNewMessage(name, content, roomId, function(error, results){
-        res.json(results);
-    });
+    var name = req.body.username;
+    var content = req.body.content;
+    var roomId = req.body.roomId;
 
- console.log("this is a message: " + content);
- 
+    console.log("this is a message: " + content);
 
+    messageModels.insertNewMessage(name, content, roomId);
 }
 
-function assignMessageToRoom(req, res){
-
-    var messageId = 1;
-    var roomId = 1;
-    
-    messageModels.insertNewMessage(messageId, roomId, function(error, results){
-        res.json(results);
-    });
-}
 
 module.exports = {
     search: search,
     getMessages: getMessages,
-    postMessages: postMessages,
-    assignMessageToRoom: assignMessageToRoom
+    postMessages: postMessages
 };
