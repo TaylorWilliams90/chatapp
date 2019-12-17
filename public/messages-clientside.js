@@ -35,17 +35,37 @@ function clickRoom(room){
 
 }
 
+function messageRoom(room){
+    console.log(room);
+    console.log("clicking on Room: ");
+    $.get("/search", {room:room}, function(data) {
+        $('#ulMessages').empty();
+
+        for (var i = 0; i < data.list.length; i++){
+            var message = data.list[i];
+
+            $("#ulMessages").append("<li class='list-group-item'> <p class='list-group-item-heading'>" + message.username + "<ul class=''> <li class='list-group-item'>" + message.content + "</li> </ul> </li>");
+        }
+
+    })
+
+}
+
 function inputMessage(username, message, roomid){
 
     var username = $("#username").val();
     var message = $("#message").val();
     var roomid = $("#roomList").val();
+    var roomName = $("#roomList  option:selected").text();
+    
+    console.log(roomName);
 
     console.log("The Room is: " + roomid + " - " + username + ": " + message);
 
     $.post("/message",{username:username, content:message, roomId:roomid});
 
-    clickRoom(roomid);
+    location.reload();
+    
 
 }
 
